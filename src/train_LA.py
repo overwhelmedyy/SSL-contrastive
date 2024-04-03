@@ -2,7 +2,7 @@
 import os
 import sys
 from tqdm import tqdm
-from tensorboardX import SummaryWriter
+
 import shutil
 import argparse
 import logging
@@ -15,10 +15,10 @@ from torchvision import transforms
 import torch.nn.functional as F
 import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
-from networks.vnet import VNet
-from networks.ResNet34 import Resnet34
-from utils import ramps, losses
-from dataloaders.la_heart import LAHeart, RandomCrop, ToTensor, TwoStreamBatchSampler
+# from networks.vnet import VNet
+# from networks.ResNet34 import Resnet34
+from loss_func.SSL_contrastive.src.utils import ramps, losses
+# from dataloaders.la_heart import LAHeart, RandomCrop, ToTensor, TwoStreamBatchSampler
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--root_path', type=str, default='C:/code/dataset/LASC2018/TrainingSet', help='Name of Experiment') 

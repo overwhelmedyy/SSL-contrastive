@@ -286,14 +286,13 @@ if __name__ == "__main__":
             v_outputs_clone = v_outputs_soft[labeled_bs:, :, :, :, :].clone().detach()
             r_outputs_clone = r_outputs_soft[labeled_bs:, :, :, :, :].clone().detach()
 
-            consistency_weight = get_current_consistency_weight(iter_num//150)
             if winner == 0:
                 loss_u_r, loss_u_v , con_loss = compute_uxi_loss(r_outputs_clone, v_outputs_clone , r_rep[labeled_bs:], percent = 20)
                 v_loss = v_supervised_loss + loss_u_v
-                r_loss = r_supervised_loss + loss_u_r + consistency_weight * con_loss
+                r_loss = r_supervised_loss + loss_u_r + 0.2 * con_loss
             else:
                 loss_u_v, loss_u_r, con_loss = compute_uxi_loss(v_outputs_clone, r_outputs_clone, v_rep[labeled_bs:], percent = 20)
-                v_loss = v_supervised_loss + loss_u_v + consistency_weight * con_loss
+                v_loss = v_supervised_loss + loss_u_v + 0.2 * con_loss
                 r_loss = r_supervised_loss + loss_u_r
             
             vnet_optimizer.zero_grad()
